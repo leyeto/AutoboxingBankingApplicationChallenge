@@ -34,7 +34,7 @@ public class Customer {
     return transactions;
   }
 
-  public void setTransactions(ArrayList<Double> transactions) {
-    this.transactions = transactions;
+  public void addTransactions(double amount) {
+    this.transactions.add(amount);
   }
 }
