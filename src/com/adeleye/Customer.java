@@ -13,4 +13,28 @@ public class Customer {
     this.accountNumber = accountNumber;
     this.transactions = new ArrayList<Double>();
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getAccountNumber() {
+    return accountNumber;
+  }
+
+  public void setAccountNumber(String accountNumber) {
+    this.accountNumber = accountNumber;
+  }
+
+  public ArrayList<Double> getTransactions() {
+    return transactions;
+  }
+
+  public void setTransactions(ArrayList<Double> transactions) {
+    this.transactions = transactions;
+  }
 }
