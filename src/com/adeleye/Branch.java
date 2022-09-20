@@ -7,9 +7,13 @@ public class Branch {
   private String branchName;
   private ArrayList<Customer> customerList;
 
-  public Branch(String branchName, ArrayList<Customer> customerList) {
+  public Branch(String branchName) {
     this.branchName = branchName;
     this.customerList = new ArrayList<Customer>();
+  }
+
+  public String getBranchName() {
+    return branchName;
   }
 
   private int findCustomerIndex(String customerName) {
@@ -22,11 +26,18 @@ public class Branch {
     return -1;
   }
 
-  public void addCustomer(String customerName, String customerAccountNumber,
-      double initialDeposit) {
+  public boolean customerExists(String customerName) {
+    if (findCustomerIndex(customerName) >= 0) {
+      return true;
+    }
+    return false;
+  }
+
+  public void addCustomer(String customerName, double initialDeposit) {
     if (findCustomerIndex(customerName) == -1) {
-      Customer newCustomer = new Customer(customerName, customerAccountNumber);
+      Customer newCustomer = new Customer(customerName);
       newCustomer.addTransactions(initialDeposit);
+      this.customerList.add(newCustomer);
       System.out.println(customerName + " Added with deposit : " + initialDeposit + " added");
       return;
     }
@@ -43,9 +54,17 @@ public class Branch {
     }
   }
 
-  public void showCustomers(boolean showTransactions){
-    for (int i = 0; i < this.customerList.size(); i++){
-      System.out.println("Customer name: " + this.customerList.get(i).getName());
+  public void showCustomers(boolean showTransactions) {
+    for (int i = 0; i < this.customerList.size(); i++) {
+      Customer customer = this.customerList.get(i);
+      System.out.println("Branch " + this.branchName
+          + "\nCustomer name: " + customer.getName()
+          + "\nAccount Number: " + customer.getAccountNumber()
+      );
+      if (showTransactions) {
+        System.out.println(customer.getTransactions());
+      }
+      System.out.println("\n");
     }
   }
 }
