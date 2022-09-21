@@ -35,10 +35,19 @@ public class Bank {
     int branchIndex = findBranchIndex(branchName);
     if (branchIndex >= 0
         && this.branchList.get(branchIndex).customerExists(customerName) == false) {
-      Customer newCustomer = new Customer(customerName);
-      newCustomer.addTransactions(initialDeposit);
+      this.branchList.get(branchIndex).addCustomer(customerName,initialDeposit);
     } else {
       System.out.println("Branch does not exist OR customer already exists");
+    }
+  }
+
+  public void showTransactions(String bankName,boolean showTransactions){
+    int branchIndex = findBranchIndex(bankName);
+    if(branchIndex >=0){
+      this.branchList.get(branchIndex).showCustomers(showTransactions);
+
+    }else {
+      System.out.println(bankName + " not found in " + bankName);
     }
   }
 

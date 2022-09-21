@@ -3,10 +3,12 @@ package com.adeleye;
 public class Main {
 
   public static void main(String[] args) {
-    Branch branch = new Branch("London");
-    branch.addCustomer("Sam",120.00);
-    branch.addCustomer("Joe",220.00);
-    branch.showCustomers(true);
+    Bank bank = new Bank("Shooter Bank");
+    bank.addBranch("London");
+    bank.newCustomer("Sam Hook",1200,"London");
+    bank.showTransactions("London",false);
+
+
 
   }
 }
