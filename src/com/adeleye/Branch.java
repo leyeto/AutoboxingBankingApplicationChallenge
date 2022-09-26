@@ -26,6 +26,16 @@ public class Branch {
     return -1;
   }
 
+  private Customer findCustomer(String customerName) {
+    for (int i = 0; i < this.customerList.size(); i++) {
+      Customer checkedCustomer = this.customerList.get(i);
+      if (checkedCustomer.getName().equalsIgnoreCase(customerName)) {
+        return checkedCustomer;
+      }
+    }
+    return null;
+  }
+
   public boolean customerExists(String customerName) {
     if (findCustomerIndex(customerName) >= 0) {
       return true;
@@ -33,38 +43,48 @@ public class Branch {
     return false;
   }
 
-  public void addCustomer(String customerName, double initialDeposit) {
+  public boolean addCustomer(String customerName, double initialDeposit) {
     if (findCustomerIndex(customerName) == -1) {
-      Customer newCustomer = new Customer(customerName);
-      newCustomer.addTransactions(initialDeposit);
+      Customer newCustomer = new Customer(customerName, initialDeposit);
       this.customerList.add(newCustomer);
       System.out.println(customerName + " Added with deposit : " + initialDeposit + " added");
-      return;
+      return true;
     }
     System.out.println("Customer with " + customerName + " already exists in branch");
+    return false;
   }
 
-  public void addCustomerTransaction(String customerName, double amount) {
+  public boolean addCustomerTransaction(String customerName, double amount) {
     int customerIndex = findCustomerIndex(customerName);
     if (customerIndex >= 0) {
       this.customerList.get(customerIndex).addTransactions(amount);
       System.out.println(amount + " added to customer " + customerName + " account");
+      return true;
     } else {
       System.out.println(customerName + " not found in branch");
+      return false;
+
     }
   }
 
   public void showCustomers(boolean showTransactions) {
+    System.out.println("Branch " + this.branchName);
     for (int i = 0; i < this.customerList.size(); i++) {
       Customer customer = this.customerList.get(i);
-      System.out.println("Branch " + this.branchName
-          + "\nCustomer name: " + customer.getName()
+      System.out.println((i + 1) + ". Customer name: " + customer.getName()
           + "\nAccount Number: " + customer.getAccountNumber()
       );
       if (showTransactions) {
-        System.out.println(customer.getTransactions());
+        ArrayList<Double> transactions = customer.getTransactions();
+        for (int j = 0; j < transactions.size(); j++) {
+          System.out.println("[" + (j + 1) + "] Amount => " + transactions.get(j));
+        }
       }
       System.out.println("\n");
     }
+  }
+
+  public String getName() {
+    return branchName;
   }
 }
